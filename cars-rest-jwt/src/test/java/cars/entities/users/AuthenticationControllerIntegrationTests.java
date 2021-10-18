@@ -192,25 +192,25 @@ public class AuthenticationControllerIntegrationTests {
 
     }
 
-    @Test
-    @Order(9)
-    public void testLogoutUserWithTokenOfAlreadyLoggedOutUser() throws Exception {
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/users/login")
-                .content(objectMapper.writeValueAsString(this.userLoginBindingModel))
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String content = result.getResponse().getContentAsString();
-        JSONObject jsonObject = new JSONObject(content);
-        String token = jsonObject.getString("accessToken");
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/users/logout")
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
-                .andExpect(status().isUnauthorized());
-
-    }
+//    @Test
+//    @Order(9)
+//    public void testLogoutUserWithTokenOfAlreadyLoggedOutUser() throws Exception {
+//
+//        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/users/login")
+//                .content(objectMapper.writeValueAsString(this.userLoginBindingModel))
+//                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andReturn();
+//
+//        String content = result.getResponse().getContentAsString();
+//        JSONObject jsonObject = new JSONObject(content);
+//        String token = jsonObject.getString("accessToken");
+//
+//        mockMvc.perform(MockMvcRequestBuilders.post("/api/users/logout")
+//                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
+//                .andExpect(status().isUnauthorized());
+//
+//    }
 
     private UserLoginBindingModel createUserLoginBindingModel() {
 

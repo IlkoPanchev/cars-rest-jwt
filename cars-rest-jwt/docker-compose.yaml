@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql_db
+    command: sh -c './wait-for mysql_db:3306 -- npm start'
+    environment:
+      MYSQL_PASSWORD: 1234
+      CLOUDINARY_SECRET: cyPFsqdZqW7t-C9E0HsKVNJQzyo
+      JWT_SECRET: jwtsecret
+      MYSQL_HOST: mysql_db
+  mysql_db:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: cars_rest_jwt_db
+      MYSQL_ROOT_PASSWORD: 1234
